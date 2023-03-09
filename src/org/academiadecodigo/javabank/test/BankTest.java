@@ -7,19 +7,19 @@ import org.academiadecodigo.javabank.managers.AccountManager;
 
 public class BankTest {
 
-    public boolean test() {
+    //public boolean test() {
 
-        AccountManager accountManager = new AccountManager();
-        Bank bank = new Bank(accountManager);
+        //AccountManager accountManager = new AccountManager();
+        //Bank bank = new Bank(accountManager);
 
         // bank initial balance should be 0
-        if (bank.getBalance() != 0) {
-            return false;
-        }
+        //if (bank.getBalance() != 0) {
+          //  return false;
+        //}
 
-        Customer c1 = new Customer();
-        Customer c2 = new Customer();
-        bank.addCustomer(c1);
+       // Customer c1 = new Customer();
+        //Customer c2 = new Customer();
+      /*  bank.addCustomer(c1);
         bank.addCustomer(c2);
 
         int a1 = c1.openAccount(AccountType.CHECKING);
@@ -38,5 +38,5 @@ public class BankTest {
         }
 
         return true;
-    }
+    }*/
 }

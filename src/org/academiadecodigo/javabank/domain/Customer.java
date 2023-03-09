@@ -13,6 +13,18 @@ import java.util.Map;
 public class Customer {
 
     private AccountManager accountManager;
+
+
+
+    String name;
+    int id;
+   public Customer (int id , String name){
+        this.id = id;
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
     private Map<Integer, Account> accounts = new HashMap<>();
 
     /**

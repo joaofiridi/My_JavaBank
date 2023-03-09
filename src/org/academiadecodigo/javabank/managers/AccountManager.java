@@ -14,6 +14,11 @@ import java.util.Map;
 public class AccountManager {
 
     private static int numberAccounts = 0;
+
+    public Map<Integer, Account> getAccountMap() {
+        return accountMap;
+    }
+
     private Map<Integer, Account> accountMap;
 
     /**

@@ -9,7 +9,7 @@ public class CustomerTest {
     public boolean test() {
 
         AccountManager accountManager = new AccountManager();
-        Customer customer = new Customer();
+        Customer customer = new Customer(1,"João");
         customer.setAccountManager(accountManager);
 
         // customer should start with zero balance
