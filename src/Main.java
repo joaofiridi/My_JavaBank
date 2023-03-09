@@ -18,8 +18,11 @@ public class Main {
         bank.addCustomer(c1);
         bank.addCustomer(c2);
 
+
         Application app = new Application(bank);
         app.checkCustomerID();
+
+
        // Menu menu = new Menu();
        // menu.menuChoice();
        // menu.setMenu();
