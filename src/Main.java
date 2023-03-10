@@ -1,6 +1,7 @@
 import org.academiadecodigo.javabank.Application;
 import org.academiadecodigo.javabank.domain.Bank;
 import org.academiadecodigo.javabank.domain.Customer;
+import org.academiadecodigo.javabank.domain.account.AccountType;
 import org.academiadecodigo.javabank.managers.AccountManager;
 
 public class Main {
@@ -17,6 +18,7 @@ public class Main {
         Bank bank = new Bank(accountManager);
         bank.addCustomer(c1);
         bank.addCustomer(c2);
+
 
 
         Application app = new Application(bank);
