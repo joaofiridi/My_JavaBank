@@ -23,6 +23,7 @@ public class Application {
     boolean isCheckingAcc = false;
     boolean isSavingsAcc = false;
     boolean isAccountOpen = false;
+    public Customer c1;
 
 
     private Prompt prompt = new Prompt(System.in, System.out);
@@ -89,7 +90,10 @@ public class Application {
 
                         accountManager = new AccountManager();
                         System.out.println("aqui");
-                        accountManager.deposit(accID, amountCredit); // ERRO <-----------------------
+
+                        accountManager.deposit(accID,amountCredit); // ERRO <-----------------------
+                        accountManager.deposit(1,100);
+
                         System.out.println("Credit done.");
                         menu();
                     }
@@ -114,7 +118,7 @@ public class Application {
 
 
                 if (accTypeAnswer == 1) {
-                    customer.openAccount(AccountType.SAVINGS);
+                    //customer.openAccount(AccountType.SAVINGS);
                     Account account = new SavingsAccount(accID);
                     accID = account.getId();
                    isAccountOpen = true;
@@ -122,7 +126,7 @@ public class Application {
                     accID++;
 
                 } else if (accTypeAnswer == 2) {
-                    customer.openAccount(AccountType.CHECKING);
+                   // customer.openAccount(AccountType.CHECKING);
                     Account account = new CheckingAccount(accID);
                     accID = account.getId();
                     isAccountOpen = true;
@@ -131,8 +135,8 @@ public class Application {
                 }
                 System.out.println("Your account has been created! ID: " + accID);
                 menu();
-
                 break;
+
             case 5:
                 break;
         }
