@@ -26,7 +26,6 @@ public class AuthServiceImpl implements AuthService {
     public boolean authenticate(Integer id) {
 
         accessingCustomer = customerService.get(id);
-
         return accessingCustomer != null;
     }
 
