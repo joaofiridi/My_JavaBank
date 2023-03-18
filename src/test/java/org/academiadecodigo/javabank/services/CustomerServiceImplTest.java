@@ -2,6 +2,7 @@ package org.academiadecodigo.javabank.services;
 
 import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.services.mock.MockCustomerService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class CustomerServiceImplTest {
 
     @Before
     public void setup() {
-        customerService = new CustomerServiceImpl();
+        customerService = new MockCustomerService();
     }
 
 
