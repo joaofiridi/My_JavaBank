@@ -1,14 +1,14 @@
 package org.academiadecodigo.javabank;
 
+import org.academiadecodigo.JDBC.ConnectionMaster;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.javabank.controller.*;
 import org.academiadecodigo.javabank.controller.transaction.DepositController;
 import org.academiadecodigo.javabank.controller.transaction.WithdrawalController;
 import org.academiadecodigo.javabank.factories.AccountFactory;
-import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.services.AccountServiceImpl;
 import org.academiadecodigo.javabank.services.AuthServiceImpl;
-import org.academiadecodigo.javabank.services.CustomerServiceImpl;
+import org.academiadecodigo.javabank.services.jdbc.CustomerJDBC;
 import org.academiadecodigo.javabank.view.*;
 
 import java.util.HashMap;
@@ -20,8 +20,10 @@ import java.util.Map;
 public class Bootstrap {
 
     private AuthServiceImpl authService;
-    private CustomerServiceImpl customerService;
+    private CustomerJDBC customerJDBC;
     private AccountServiceImpl accountService;
+
+
 
     /**
      * Sets the authentication service
@@ -35,10 +37,10 @@ public class Bootstrap {
     /**
      * Sets the customer service
      *
-     * @param customerService the customer service to set
+     * @param customerJDBC the customer service to set
      */
-    public void setCustomerService(CustomerServiceImpl customerService) {
-        this.customerService = customerService;
+    public void setCustomerJDBC(CustomerJDBC customerJDBC) {
+        this.customerJDBC = customerJDBC;
     }
 
     /**
@@ -53,7 +55,7 @@ public class Bootstrap {
     /**
      * Creates a {@code CustomerService} and populates it with data
      */
-    public void loadCustomers() {
+  /*  public void loadCustomers() {
 
         Customer c1 = new Customer();
         Customer c2 = new Customer();
@@ -64,7 +66,7 @@ public class Bootstrap {
         customerService.add(c1);
         customerService.add(c2);
         customerService.add(c3);
-    }
+    } */
 
     /**
      * Wires the necessary object dependencies
@@ -77,7 +79,7 @@ public class Bootstrap {
         Prompt prompt = new Prompt(System.in, System.out);
 
         // wire services
-        authService.setCustomerService(customerService);
+        authService.setCustomerService(customerJDBC);
 
         // wire login controller and view
         LoginController loginController = new LoginController();
@@ -86,6 +88,7 @@ public class Bootstrap {
         loginController.setAuthService(authService);
         loginView.setLoginController(loginController);
         loginView.setPrompt(prompt);
+
 
         // wire main controller and view
         MainController mainController = new MainController();
@@ -101,7 +104,7 @@ public class Bootstrap {
         BalanceView balanceView = new BalanceView();
         balanceView.setBalanceController(balanceController);
         balanceController.setView(balanceView);
-        balanceController.setCustomerService(customerService);
+        balanceController.setCustomerService(customerJDBC);
         balanceController.setAuthService(authService);
 
         // wire new account controller and view
@@ -120,10 +123,10 @@ public class Bootstrap {
         AccountTransactionView withdrawView = new AccountTransactionView();
         depositController.setAuthService(authService);
         depositController.setAccountService(accountService);
-        depositController.setCustomerService(customerService);
+        depositController.setCustomerService(customerJDBC);
         depositController.setView(depositView);
         withdrawalController.setAuthService(authService);
-        withdrawalController.setCustomerService(customerService);
+        withdrawalController.setCustomerService(customerJDBC);
         withdrawalController.setAccountService(accountService);
         withdrawalController.setView(withdrawView);
         depositView.setPrompt(prompt);
@@ -139,6 +142,7 @@ public class Bootstrap {
         controllerMap.put(UserOptions.WITHDRAW.getOption(), withdrawalController);
 
         mainController.setControllerMap(controllerMap);
+
 
         return loginController;
     }
