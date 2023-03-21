@@ -1,4 +1,6 @@
+*.iml
+out
 .idea
 target
-out
-*.iml
+dependency-reduced-pom.xml
+*.db

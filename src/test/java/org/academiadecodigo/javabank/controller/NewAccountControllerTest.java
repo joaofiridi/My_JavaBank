@@ -2,7 +2,7 @@ package org.academiadecodigo.javabank.controller;
 
 import org.academiadecodigo.javabank.factories.AccountFactory;
 import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.model.account.AbstractAccount;
 import org.academiadecodigo.javabank.model.account.AccountType;
 import org.academiadecodigo.javabank.services.AccountService;
 import org.academiadecodigo.javabank.services.AuthService;
@@ -37,10 +37,10 @@ public class NewAccountControllerTest {
         when(authService.getAccessingCustomer()).thenReturn(customer);
 
         // wire them all
+        newAccountController.setAccountFactory(accountFactory);
         newAccountController.setAccountService(accountService);
         newAccountController.setAuthService(authService);
         newAccountController.setView(view);
-        newAccountController.setAccountFactory(accountFactory);
 
     }
 
@@ -51,9 +51,10 @@ public class NewAccountControllerTest {
         int id = 999;
 
         // make account factory mock return a new mock account when asked to
-        Account account = mock(Account.class);
+        AbstractAccount account = mock(AbstractAccount.class);
         when(account.getId()).thenReturn(id);
         when(accountFactory.createAccount(any(AccountType.class))).thenReturn(account);
+        when(accountService.save(account)).thenReturn(account);
 
         // init the controller (which creates a new account)
         newAccountController.init();
@@ -70,6 +71,9 @@ public class NewAccountControllerTest {
 
         // check if new account ID matches mock account's ID
         assertEquals(id, (int) newAccountController.getNewAccountId());
+        int newAccountId = newAccountController.getNewAccountId();
+
+        assertEquals(newAccountId, id);
 
     }
 }

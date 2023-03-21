@@ -1,6 +1,6 @@
 package org.academiadecodigo.javabank.services;
 
-import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.model.account.AbstractAccount;
 
 /**
  * Common interface for account services, provides methods to manage accounts and perform account transactions
@@ -8,43 +8,29 @@ import org.academiadecodigo.javabank.model.account.Account;
 public interface AccountService {
 
     /**
-     * gets an account by its id number
-     *
-     * @param id the id of the account to get
-     * @return the account with the given id
-     */
-    Account get(Integer id);
-
-    /**
-     * Adds an account to the service
-     *
-     * @param account the account to add
-     */
-    void add(Account account);
-
-    /**
-     * Perform an {@link Account} deposit
+     * Perform an {@link AbstractAccount} deposit
      *
      * @param id     the id of the account
      * @param amount the amount to deposit
      */
-    void deposit(int id, double amount);
+    void deposit(Integer id, double amount);
 
     /**
-     * Perform an {@link Account} withdrawal
+     * Perform an {@link AbstractAccount} withdrawal
      *
      * @param id     the id of the account
      * @param amount the amount to withdraw
      */
-    void withdraw(int id, double amount);
+    void withdraw(Integer id, double amount);
 
     /**
-     * Performs a transfer between two {@link Account} if possible
+     * Performs a transfer between two {@link AbstractAccount} if possible
      *
      * @param srcId  the source account id
      * @param dstId  the destination account id
      * @param amount the amount to transfer
      */
-    void transfer(int srcId, int dstId, double amount);
+    void transfer(Integer srcId, Integer dstId, double amount);
 
+    AbstractAccount save(AbstractAccount account);
 }

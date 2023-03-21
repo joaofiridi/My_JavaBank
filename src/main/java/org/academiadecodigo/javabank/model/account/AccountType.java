@@ -1,7 +1,7 @@
 package org.academiadecodigo.javabank.model.account;
 
 /**
- * The possible {@link Account} types
+ * The possible {@link AbstractAccount} types
  */
 public enum AccountType {
 

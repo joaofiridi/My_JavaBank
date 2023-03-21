@@ -1,8 +1,7 @@
 package org.academiadecodigo.javabank.controller;
 
 import org.academiadecodigo.javabank.factories.AccountFactory;
-import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.model.account.AbstractAccount;
 import org.academiadecodigo.javabank.model.account.AccountType;
 import org.academiadecodigo.javabank.services.AccountService;
 import org.academiadecodigo.javabank.view.NewAccountView;
@@ -13,8 +12,8 @@ import org.academiadecodigo.javabank.view.NewAccountView;
 public class NewAccountController extends AbstractController {
 
     private Integer newAccountId;
-    private AccountService accountService;
     private AccountFactory accountFactory;
+    private AccountService accountService;
 
     /**
      * Gets the new account id
@@ -23,6 +22,15 @@ public class NewAccountController extends AbstractController {
      */
     public Integer getNewAccountId() {
         return newAccountId;
+    }
+
+    /**
+     * Sets the account factory
+     *
+     * @param accountFactory the account factory to set
+     */
+    public void setAccountFactory(AccountFactory accountFactory) {
+        this.accountFactory = accountFactory;
     }
 
     /**
@@ -35,35 +43,22 @@ public class NewAccountController extends AbstractController {
     }
 
     /**
-     * Sets the account factory
-     *
-     * @param accountFactory
-     */
-    public void setAccountFactory(AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
-    }
-
-    /**
-     * Creates a new {@link Account}
+     * Creates a new {@link AbstractAccount}
      *
      * @see Controller#init()
      * @see AccountFactory#createAccount(AccountType)
      */
     @Override
     public void init() {
-
         newAccountId = createAccount();
         super.init();
     }
 
     private int createAccount() {
 
-        Account newAccount = accountFactory.createAccount(AccountType.CHECKING);
-        Customer accessingCustomer = authService.getAccessingCustomer();
-
-        accessingCustomer.addAccount(newAccount);
-        accountService.add(newAccount);
-
-        return newAccount.getId();
+        AbstractAccount newAccount = accountFactory.createAccount(AccountType.CHECKING);
+        authService.getAccessingCustomer().addAccount(newAccount);
+        AbstractAccount account = accountService.save(newAccount);
+        return account.getId();
     }
 }

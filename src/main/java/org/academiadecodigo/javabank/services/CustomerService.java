@@ -2,7 +2,6 @@ package org.academiadecodigo.javabank.services;
 
 import org.academiadecodigo.javabank.model.Customer;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,19 +10,20 @@ import java.util.Set;
 public interface CustomerService {
 
     /**
-     * Gets the customer
+     * Gets the customer object
      *
      * @param id the customer id
-     * @return the customer with the given id
+     * @return the customer object
      */
     Customer get(Integer id);
 
     /**
-     * Gets the list of customers
+     * Gets the balance of the customer
      *
-     * @return the customer list
+     * @param id the customer id
+     * @return the balance of the customer with the given id
      */
-    List<Customer> list();
+    double getBalance(Integer id);
 
     /**
      * Gets the set of customer account ids
@@ -32,19 +32,4 @@ public interface CustomerService {
      * @return the accounts of the given customer id
      */
     Set<Integer> listCustomerAccountIds(Integer id);
-
-    /**
-     * Gets the balance of the customer
-     *
-     * @param id the customer id
-     * @return the balance of the customer with the given id
-     */
-    double getBalance(int id);
-
-    /**
-     * Adds a customer to the service
-     *
-     * @param customer the customer to add
-     */
-    void add(Customer customer);
 }

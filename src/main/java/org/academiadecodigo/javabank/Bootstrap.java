@@ -5,10 +5,9 @@ import org.academiadecodigo.javabank.controller.*;
 import org.academiadecodigo.javabank.controller.transaction.DepositController;
 import org.academiadecodigo.javabank.controller.transaction.WithdrawalController;
 import org.academiadecodigo.javabank.factories.AccountFactory;
-import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.services.AccountService;
-import org.academiadecodigo.javabank.services.CustomerService;
 import org.academiadecodigo.javabank.services.AuthServiceImpl;
+import org.academiadecodigo.javabank.services.CustomerService;
 import org.academiadecodigo.javabank.view.*;
 
 import java.util.HashMap;
@@ -22,7 +21,6 @@ public class Bootstrap {
     private AuthServiceImpl authService;
     private CustomerService customerService;
     private AccountService accountService;
-    private AccountFactory accountFactory;
 
     /**
      * Sets the authentication service
@@ -49,15 +47,6 @@ public class Bootstrap {
      */
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
-    }
-
-    /**
-     * Sets the account factory
-     *
-     * @param accountFactory
-     */
-    public void setAccountFactory(AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
     }
 
     /**
@@ -101,9 +90,9 @@ public class Bootstrap {
         // wire new account controller and view
         NewAccountView newAccountView = new NewAccountView();
         NewAccountController newAccountController = new NewAccountController();
-        newAccountController.setAccountFactory(accountFactory);
         newAccountController.setAccountService(accountService);
         newAccountController.setAuthService(authService);
+        newAccountController.setAccountFactory(new AccountFactory());
         newAccountController.setView(newAccountView);
         newAccountView.setNewAccountController(newAccountController);
 
