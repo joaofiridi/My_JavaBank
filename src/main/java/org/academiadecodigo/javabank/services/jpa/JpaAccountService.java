@@ -58,14 +58,14 @@ public class JpaAccountService implements AccountService {
 
             em.getTransaction().begin();
 
-            Optional<AbstractAccount> account = Optional.ofNullable(em.find(AbstractAccount.class, id));
+            AbstractAccount account = em.find(AbstractAccount.class, id);
 
-            if (!account.isPresent()) {
+            if (account == null) {
                 em.getTransaction().rollback();
+                throw new IllegalArgumentException("invalid account id");
             }
 
-            account.orElseThrow(() -> new IllegalArgumentException("invalid account id")).credit(amount);
-
+            account.credit(amount);
             em.getTransaction().commit();
 
         } catch (RollbackException ex) {

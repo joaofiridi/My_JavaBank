@@ -1,5 +1,6 @@
 package org.academiadecodigo.javabank.model.account;
 
+import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.Model;
 
 public interface Account extends Model {
@@ -57,5 +58,7 @@ public interface Account extends Model {
      */
     boolean canWithdraw();
 
+
+    void setCustomer(Customer customer);
 
 }

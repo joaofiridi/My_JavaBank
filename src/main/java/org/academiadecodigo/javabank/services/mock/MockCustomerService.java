@@ -2,7 +2,9 @@ package org.academiadecodigo.javabank.services.mock;
 
 import org.academiadecodigo.javabank.model.AbstractModel;
 import org.academiadecodigo.javabank.model.Customer;
+import org.academiadecodigo.javabank.model.Model;
 import org.academiadecodigo.javabank.model.account.AbstractAccount;
+import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.services.CustomerService;
 
 import java.util.*;
@@ -26,10 +28,10 @@ public class MockCustomerService implements CustomerService {
     @Override
     public double getBalance(Integer id) {
 
-        List<AbstractAccount> accounts = modelMap.get(id).getAccounts();
+        List<Account> accounts = modelMap.get(id).getAccounts();
 
         return accounts.stream()
-                .mapToDouble(AbstractAccount::getBalance)
+                .mapToDouble(Account::getBalance)
                 .sum();
     }
 
@@ -39,10 +41,10 @@ public class MockCustomerService implements CustomerService {
     @Override
     public Set<Integer> listCustomerAccountIds(Integer id) {
 
-        List<AbstractAccount> accounts = modelMap.get(id).getAccounts();
+        List<Account> accounts = modelMap.get(id).getAccounts();
 
         return accounts.stream()
-                .map(AbstractModel::getId)
+                .map(Model::getId)
                 .collect(Collectors.toSet());
     }
 }

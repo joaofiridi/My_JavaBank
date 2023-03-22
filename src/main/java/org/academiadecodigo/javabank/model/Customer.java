@@ -28,9 +28,10 @@ public class Customer extends AbstractModel {
             mappedBy = "customer",
 
             // fetch accounts from database together with customer
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            targetEntity = AbstractAccount.class
     )
-    private List<AbstractAccount> accounts = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
 
     /**
      * Gets the name of the customer
@@ -55,7 +56,7 @@ public class Customer extends AbstractModel {
      *
      * @return the accounts
      */
-    public List<AbstractAccount> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
@@ -64,7 +65,7 @@ public class Customer extends AbstractModel {
      *
      * @param account the account to add
      */
-    public void addAccount(AbstractAccount account) {
+    public void addAccount(Account account) {
         accounts.add(account);
         account.setCustomer(this);
     }
@@ -74,7 +75,7 @@ public class Customer extends AbstractModel {
      *
      * @param account the account to remove
      */
-    public void removeAccount(AbstractAccount account) {
+    public void removeAccount(Account account) {
         accounts.remove(account);
         account.setCustomer(null);
     }

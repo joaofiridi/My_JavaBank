@@ -2,7 +2,9 @@ package org.academiadecodigo.javabank.services.jpa;
 
 import org.academiadecodigo.javabank.model.AbstractModel;
 import org.academiadecodigo.javabank.model.Customer;
+import org.academiadecodigo.javabank.model.Model;
 import org.academiadecodigo.javabank.model.account.AbstractAccount;
+import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.services.CustomerService;
 
 import javax.persistence.EntityManager;
@@ -48,12 +50,14 @@ public class JpaCustomerService implements CustomerService {
 
         try {
 
-            Customer customer = Optional.ofNullable(em.find(Customer.class, id))
-                .orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
+            Customer customer = Optional.ofNullable(em.find(Customer.class, id)).orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
 
-            return customer.getAccounts().stream()
-                .mapToDouble(AbstractAccount::getBalance)
-                .sum();
+            double total = 0;
+            for (Account account : customer.getAccounts()) {
+                total += account.getBalance();
+            }
+
+            return total;
 
         } finally {
             if (em != null) {
@@ -76,7 +80,7 @@ public class JpaCustomerService implements CustomerService {
                 .orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
 
             return customer.getAccounts().stream()
-                .map(AbstractModel::getId)
+                .map(Model::getId)
                 .collect(Collectors.toSet());
 
         } finally {
