@@ -2,10 +2,16 @@ package org.academiadecodigo.javabank.model.account;
 
 import org.academiadecodigo.javabank.model.AbstractModel;
 
+import javax.persistence.*;
+
 /**
  * A generic account model entity to be used as a base for concrete types of accounts
  * @see Account
  */
+@Entity
+@Table(name = "accounts")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public abstract class AbstractAccount extends AbstractModel implements Account {
 
     private double balance = 0;

@@ -1,29 +1,41 @@
 package org.academiadecodigo.javabank.model;
 
+import org.academiadecodigo.javabank.model.account.AbstractAccount;
 import org.academiadecodigo.javabank.model.account.Account;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The customer model entity
  */
+@Entity
+@Table(name = "customer")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Customer extends AbstractModel {
 
-    private String firstName;
-    private String lastName;
+    private String first_Name;
+    private String last_Name;
     private String email;
     private String phone;
-
+    @OneToMany (targetEntity = AbstractAccount.class)
     private List<Account> accounts = new ArrayList<>();
+    public Customer(){}
+    public Customer(String firstName, String lastName, String email, String phone){
+        this.first_Name = firstName;
+        this.last_Name = lastName;
+        this.email = email;
+        this.phone = phone;
+    }
 
     /**
      * Gets the firstName of the customer
      *
      * @return the customer firstName
      */
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_Name() {
+        return first_Name;
     }
 
     /**
@@ -31,16 +43,16 @@ public class Customer extends AbstractModel {
      *
      * @param firstName the firstName to set
      */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_Name(String firstName) {
+        this.first_Name = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_Name() {
+        return last_Name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_Name(String lastName) {
+        this.last_Name = lastName;
     }
 
     public String getEmail() {
@@ -90,11 +102,10 @@ public class Customer extends AbstractModel {
     @Override
     public String toString() {
         return "Customer{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstName='" + first_Name + '\'' +
+                ", lastName='" + last_Name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", accounts=" + accounts +
                 '}';
     }
 }

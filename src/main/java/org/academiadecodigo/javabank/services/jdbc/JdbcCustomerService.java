@@ -153,8 +153,8 @@ public class JdbcCustomerService implements CustomerService {
 
             PreparedStatement statement = connectionManager.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, customer.getFirstName());
-            statement.setString(2, customer.getLastName());
+            statement.setString(1, customer.getFirst_Name());
+            statement.setString(2, customer.getLast_Name());
             statement.setString(3, customer.getEmail());
             statement.setString(4, customer.getPhone());
 
@@ -178,8 +178,8 @@ public class JdbcCustomerService implements CustomerService {
         Customer customer = new Customer();
 
         customer.setId(resultSet.getInt("cid"));
-        customer.setFirstName(resultSet.getString("first_name"));
-        customer.setLastName(resultSet.getString("last_name"));
+        customer.setFirst_Name(resultSet.getString("first_name"));
+        customer.setLast_Name(resultSet.getString("last_name"));
         customer.setPhone(resultSet.getString("phone"));
         customer.setEmail(resultSet.getString("email"));
 

@@ -1,10 +1,18 @@
 package org.academiadecodigo.javabank.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * A generic model entity to be used as a base for concrete types of models
  */
+@MappedSuperclass
 public abstract class AbstractModel implements Model {
 
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**

@@ -3,9 +3,11 @@ package org.academiadecodigo.javabank;
 import org.academiadecodigo.javabank.controller.Controller;
 import org.academiadecodigo.javabank.factories.AccountFactory;
 import org.academiadecodigo.javabank.persistence.ConnectionManager;
-import org.academiadecodigo.javabank.services.jdbc.JdbcAccountService;
-import org.academiadecodigo.javabank.services.jdbc.JdbcCustomerService;
+import org.academiadecodigo.javabank.services.jdbc.CustomerJDA;
 import org.academiadecodigo.javabank.services.AuthServiceImpl;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class App {
 
@@ -19,15 +21,20 @@ public class App {
 
         ConnectionManager connectionManager = new ConnectionManager();
 
+
         AccountFactory accountFactory = new AccountFactory();
-        JdbcAccountService accountService = new JdbcAccountService(connectionManager, accountFactory);
-        JdbcCustomerService customerService = new JdbcCustomerService(connectionManager);
-        customerService.setAccountService(accountService);
+      // JdbcAccountService accountService = new JdbcAccountService(connectionManager, accountFactory);
+       // JdbcCustomerService customerService = new JdbcCustomerService(connectionManager);
+       // customerService.setAccountService(accountService);
+
+
+
+
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.setAuthService(new AuthServiceImpl());
-        bootstrap.setAccountService(accountService);
-        bootstrap.setCustomerService(customerService);
+       // bootstrap.setAccountService(accountService);
+      //  bootstrap.setCustomerService(customerService);
         bootstrap.setAccountFactory(accountFactory);
         Controller controller = bootstrap.wireObjects();
 
