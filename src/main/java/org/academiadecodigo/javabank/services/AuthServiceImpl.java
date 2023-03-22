@@ -1,5 +1,6 @@
 package org.academiadecodigo.javabank.services;
 
+
 import org.academiadecodigo.javabank.model.Customer;
 
 import java.util.Optional;
@@ -33,6 +34,12 @@ public class AuthServiceImpl implements AuthService {
 
         return customer.isPresent();
 
+//        if (customer == null) {
+//            return false;
+//        }
+//
+//        accessingCustomerId = customer.getId();
+//        return true;
     }
 
     /**

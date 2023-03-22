@@ -1,64 +1,64 @@
 package org.academiadecodigo.javabank.model.account;
 
+import org.academiadecodigo.javabank.model.AbstractModel;
 import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.model.Model;
 
-public interface Account extends Model {
+import javax.persistence.*;
 
-    /**
-     * Gets the account balance
-     *
-     * @return the account balance
-     */
-    double getBalance();
+@Entity
+@Table(name = "account")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "account_type")
+public abstract class Account extends AbstractModel {
 
-    /**
-     * Gets the account type
-     *
-     * @return the account type
-     */
-    AccountType getAccountType();
+    private double balance = 0;
 
-    /**
-     * Credits the account
-     *
-     * @param amount the amount to credit
-     * @see Account#canCredit(double)
-     */
-    void credit(double amount);
+    @ManyToOne
+    private Customer customer;
 
-    /**
-     * Debits the account
-     *
-     * @param amount the amount to debit
-     * @see Account#canDebit(double)
-     */
-    void debit(double amount);
+    public void credit(double amount) {
+        if (canCredit(amount)) {
+            balance += amount;
+        }
+    }
 
-    /**
-     * Checks if a specific amount can be credited on the account
-     *
-     * @param amount the amount to check
-     * @return {@code true} if the account can be credited
-     */
-    boolean canCredit(double amount);
+    public void debit(double amount) {
+        if (canDebit(amount)) {
+            balance -= amount;
+        }
+    }
 
-    /**
-     * Checks if a specific amount can be debited from the account
-     *
-     * @param amount the amount to check
-     * @return {@code true} if the account can be debited
-     */
-    boolean canDebit(double amount);
+    public double getBalance() {
+        return balance;
+    }
 
-    /**
-     * Checks if the account can be withdrawn
-     *
-     * @return {@code true} if withdraw can be done
-     */
-    boolean canWithdraw();
+    public abstract AccountType getAccountType();
 
+    public boolean canDebit(double amount) {
+        return amount > 0 && amount <= balance;
+    }
 
-    void setCustomer(Customer customer);
+    public boolean canCredit(double amount) {
+        return amount > 0;
+    }
 
+    public boolean canWithdraw() {
+        return true;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "balance=" + balance +
+                ", customerId=" + (customer != null ? customer.getId() : null) +
+                "} " + super.toString();
+    }
 }

@@ -2,7 +2,6 @@ package org.academiadecodigo.javabank.view;
 
 import org.academiadecodigo.javabank.controller.BalanceController;
 import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.model.account.AbstractAccount;
 import org.academiadecodigo.javabank.model.account.Account;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,9 +40,9 @@ public class BalanceViewTest {
     @Test
     public void showBalance() {
 
-        accounts.add(mock(AbstractAccount.class));
-        accounts.add(mock(AbstractAccount.class));
-        accounts.add(mock(AbstractAccount.class));
+        accounts.add(mock(Account.class));
+        accounts.add(mock(Account.class));
+        accounts.add(mock(Account.class));
 
         view.show();
 

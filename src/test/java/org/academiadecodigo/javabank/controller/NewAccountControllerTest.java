@@ -2,7 +2,7 @@ package org.academiadecodigo.javabank.controller;
 
 import org.academiadecodigo.javabank.factories.AccountFactory;
 import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.model.account.AbstractAccount;
+import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.model.account.AccountType;
 import org.academiadecodigo.javabank.services.AccountService;
 import org.academiadecodigo.javabank.services.AuthService;
@@ -51,10 +51,10 @@ public class NewAccountControllerTest {
         int id = 999;
 
         // make account factory mock return a new mock account when asked to
-        AbstractAccount account = mock(AbstractAccount.class);
+        Account account = mock(Account.class);
         when(account.getId()).thenReturn(id);
         when(accountFactory.createAccount(any(AccountType.class))).thenReturn(account);
-        when(accountService.save(account)).thenReturn(account);
+        when(accountService.add(account)).thenReturn(id);
 
         // init the controller (which creates a new account)
         newAccountController.init();

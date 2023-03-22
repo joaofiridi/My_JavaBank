@@ -1,7 +1,9 @@
 package org.academiadecodigo.javabank.services;
 
 import org.academiadecodigo.javabank.model.Customer;
+import org.academiadecodigo.javabank.model.Recipient;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,10 +12,10 @@ import java.util.Set;
 public interface CustomerService {
 
     /**
-     * Gets the customer object
+     * Gets the customer with the given id
      *
      * @param id the customer id
-     * @return the customer object
+     * @return the customer
      */
     Customer get(Integer id);
 
@@ -32,4 +34,12 @@ public interface CustomerService {
      * @return the accounts of the given customer id
      */
     Set<Integer> listCustomerAccountIds(Integer id);
+
+    /**
+     * Gets the list of customer recipients
+     *
+     * @param id the customer id
+     * @return the list of recipients of the customer
+     */
+    List<Recipient> listRecipients(Integer id);
 }
