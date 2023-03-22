@@ -69,7 +69,7 @@ public class JpaCustomerServiceIntegrationTest extends JpaIntegrationTestHelper 
         // verify
         assertNotNull("Customer is null", customer);
         assertEquals("Customer id is wrong", id, customer.getId().intValue());
-        assertEquals("Customer name is wrong", "Rui", customer.getName());
+        assertEquals("Customer name is wrong", "Rui", customer.getFirstName());
 
     }
 

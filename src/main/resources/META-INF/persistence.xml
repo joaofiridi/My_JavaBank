@@ -21,7 +21,7 @@
             <property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
 
             <!-- Validate database schema, data loss can occur if set to create or update -->
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
             <!-- Turn on for debug -->
             <!--<property name="hibernate.show_sql" value="true"/>-->
