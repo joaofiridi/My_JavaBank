@@ -5,6 +5,7 @@ import org.academiadecodigo.javabank.controller.*;
 import org.academiadecodigo.javabank.controller.transaction.DepositController;
 import org.academiadecodigo.javabank.controller.transaction.WithdrawalController;
 import org.academiadecodigo.javabank.factories.AccountFactory;
+import org.academiadecodigo.javabank.persistence.dao.jpa.JpaCustomerDao;
 import org.academiadecodigo.javabank.services.AccountService;
 import org.academiadecodigo.javabank.services.AuthServiceImpl;
 import org.academiadecodigo.javabank.services.CustomerService;
@@ -22,6 +23,10 @@ public class Bootstrap {
     private CustomerService customerService;
     private AccountService accountService;
 
+
+
+    private JpaCustomerDao jpaCustomerDao;
+
     /**
      * Sets the authentication service
      *
@@ -30,7 +35,9 @@ public class Bootstrap {
     public void setAuthService(AuthServiceImpl authService) {
         this.authService = authService;
     }
-
+    public void setJpaCustomerDao(JpaCustomerDao jpaCustomerDao) {
+        this.jpaCustomerDao = jpaCustomerDao;
+    }
     /**
      * Sets the customer service
      *
@@ -60,7 +67,9 @@ public class Bootstrap {
         Prompt prompt = new Prompt(System.in, System.out);
 
         // wire services
-        authService.setCustomerService(customerService);
+       // authService.setCustomerService(customerService);
+        AuthServiceImpl authService = new AuthServiceImpl();
+        authService.setJpaCustomerDao((jpaCustomerDao));
 
         // wire login controller and view
         LoginController loginController = new LoginController();

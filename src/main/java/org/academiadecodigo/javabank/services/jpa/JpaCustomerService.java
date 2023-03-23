@@ -5,6 +5,8 @@ import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.Model;
 import org.academiadecodigo.javabank.model.account.AbstractAccount;
 import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.persistence.dao.jpa.JpaCustomerDao;
+import org.academiadecodigo.javabank.persistence.jpa.JpaTransactionManager;
 import org.academiadecodigo.javabank.services.CustomerService;
 
 import javax.persistence.EntityManager;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class JpaCustomerService implements CustomerService {
 
     private EntityManagerFactory emf;
+    private JpaTransactionManager jpaTransactionManager;
+    private JpaCustomerDao jpaCustomerDao;
 
     /**
      * Instantiates a JpaCustomerService
@@ -31,13 +35,9 @@ public class JpaCustomerService implements CustomerService {
 
     @Override
     public Customer get(Integer id) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            return em.find(Customer.class, id);
-        } finally {
-            em.close();
-        }
+        jpaTransactionManager.beginWrite();
+        jpaTransactionManager.rollback();
+        return jpaCustomerDao.findById(id);
     }
 
     /**
