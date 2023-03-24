@@ -5,5 +5,7 @@ package org.academiadecodigo.javabank;
  */
 public class Config {
 
-    public static final String PERSISTENCE_UNIT = "prod";
+    public static final String SPRING_CONFIG = "/spring/spring-config.xml";
+    public static final String SPRING_DEFAULT_PROFILE = "prod";
+    public static final String SPRING_PROFILE_ENV_VAR = "target";
 }
