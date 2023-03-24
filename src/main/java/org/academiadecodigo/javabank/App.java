@@ -15,7 +15,7 @@ public class App {
     private void bootStrap() {
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.getEnvironment().setActiveProfiles(getProfile());
+        ctx.getEnvironment().setActiveProfiles(Config.SPRING_DEFAULT_PROFILE);
         ctx.load(Config.SPRING_CONFIG);
         ctx.refresh();
 
@@ -23,9 +23,5 @@ public class App {
         controller.init();
     }
 
-    private String getProfile() {
 
-        String target = System.getenv(Config.SPRING_PROFILE_ENV_VAR);
-        return target == null ? Config.SPRING_DEFAULT_PROFILE : target;
-    }
 }
