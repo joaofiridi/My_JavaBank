@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="emf.xml"/>
+
+
+    <!-- PROMPT -->
+    <bean id="prompt" class="org.academiadecodigo.bootcamp.Prompt">
+        <constructor-arg name="input">
+            <util:constant static-field="java.lang.System.in"/>
+        </constructor-arg>
+        <constructor-arg name="output">
+            <util:constant static-field="java.lang.System.out"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- LOGIN -->
+    <bean id="loginController" class="org.academiadecodigo.javabank.controller.LoginController">
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="view" ref="loginView"/>
+        <property name="nextController" ref="mainController"/>
+    </bean>
+
+    <bean id="loginView" class="org.academiadecodigo.javabank.view.LoginView">
+        <property name="loginController" ref="loginController"/>
+        <property name="prompt" ref="prompt"/>
+    </bean>
+
+    <!-- MAIN MENU -->
+    <bean id="mainController" class="org.academiadecodigo.javabank.controller.MainController">
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="view" ref="mainView"/>
+        <property name="controllerMap">
+            <map>
+                <entry key="1" value-ref="balanceController"/>
+                <entry key="2" value-ref="depositController"/>
+                <entry key="3" value-ref="withdrawalController"/>
+                <entry key="4" value-ref="newAccountController"/>
+                <entry key="5" value-ref="recipientController"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="mainView" class="org.academiadecodigo.javabank.view.MainView">
+        <property name="mainController" ref="mainController"/>
+        <property name="prompt" ref="prompt"/>
+
+    </bean>
+
+    <!--BALANCE -->
+
+    <bean id="balanceController" class="org.academiadecodigo.javabank.controller.BalanceController">
+        <property name="customerService" ref="customerServiceImpl"/>
+        <property name="view" ref="balanceView"/>
+        <property name="authService" ref="authServiceImpl"/>
+    </bean>
+    <bean id="balanceView" class="org.academiadecodigo.javabank.view.BalanceView">
+        <property name="balanceController" ref="balanceController"/>
+    </bean>
+
+    <!-- MAKE DEPOSIT -->
+
+    <bean id="depositController" class="org.academiadecodigo.javabank.controller.transaction.DepositController">
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="customerService" ref="customerServiceImpl"/>
+        <property name="accountService" ref="accountServiceImpl"/>
+        <property name="view" ref="depositView"/>
+    </bean>
+
+    <bean id="depositView" class="org.academiadecodigo.javabank.view.AccountTransactionView">
+        <property name="prompt" ref="prompt"/>
+        <property name="transactionController" ref="depositController"/>
+    </bean>
+
+    <!-- WITHDRAWAL -->
+
+    <bean id="withdrawalController" class="org.academiadecodigo.javabank.controller.transaction.WithdrawalController">
+        <property name="accountService" ref="accountServiceImpl"/>
+        <property name="customerService" ref="customerServiceImpl"/>
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="view" ref="withdrawalView"/>
+    </bean>
+
+    <bean id="withdrawalView" class="org.academiadecodigo.javabank.view.AccountTransactionView">
+        <property name="prompt" ref="prompt"/>
+        <property name="transactionController" ref="withdrawalController"/>
+    </bean>
+
+    <!-- NEW ACCOUNT -->
+
+    <bean id="newAccountController" class="org.academiadecodigo.javabank.controller.NewAccountController">
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="accountService" ref="accountServiceImpl"/>
+        <property name="view" ref="newAccountView"/>
+        <property name="accountFactory" ref="accountFactory"/>
+    </bean>
+
+    <bean id="newAccountView" class="org.academiadecodigo.javabank.view.NewAccountView">
+        <property name="newAccountController" ref="newAccountController"/>
+    </bean>
+
+    <!-- ACCOUNT FACTORY -->
+
+    <bean id="accountFactory" class="org.academiadecodigo.javabank.factories.AccountFactory"/>
+
+    <!-- RECIPIENT LIST -->
+
+    <bean id="recipientController" class="org.academiadecodigo.javabank.controller.RecipientsController">
+        <property name="authService" ref="authServiceImpl"/>
+        <property name="customerService" ref="customerServiceImpl"/>
+        <property name="view" ref="recipientView"/>
+    </bean>
+    <bean id="recipientView" class="org.academiadecodigo.javabank.view.RecipientsView">
+        <property name="recipientsController" ref="recipientController"/>
+    </bean>
+
+
+    <!-- JPA SESSION MANAGER -->
+
+    <bean id="jpaSessionManager" class="org.academiadecodigo.javabank.persistence.jpa.JpaSessionManager">
+        <constructor-arg name="emf" ref="emFactory"/>
+    </bean>
+
+    <!-- JPA TRANSATION MANAGER -->
+
+    <bean id="jpaTransactionManager" class="org.academiadecodigo.javabank.persistence.jpa.JpaTransactionManager">
+        <constructor-arg name="sm" ref="jpaSessionManager"/>
+    </bean>
+
+    <!-- ACC DAO & CUSTOMER DAO -->
+
+    <bean id="jpaAccountDao" class="org.academiadecodigo.javabank.persistence.dao.jpa.JpaAccountDao">
+        <constructor-arg name="sm" ref="jpaSessionManager"/>
+    </bean>
+
+    <bean id="jpaCustomerDao" class="org.academiadecodigo.javabank.persistence.dao.jpa.JpaCustomerDao">
+        <constructor-arg name="sm" ref="jpaSessionManager"/>
+    </bean>
+
+  <!-- ACCOUNT SERVICE IMPL -->
+
+  <bean id="accountServiceImpl" class="org.academiadecodigo.javabank.services.AccountServiceImpl">
+      <property name="transactionManager" ref="jpaTransactionManager"/>
+      <property name="accountDao" ref="jpaAccountDao"/>
+  </bean>
+
+  <!-- CUSTOMER SERVICE IMPL -->
+
+    <bean id="customerServiceImpl" class="org.academiadecodigo.javabank.services.CustomerServiceImpl">
+        <property name="transactionManager" ref="jpaTransactionManager"/>
+        <property name="customerDao" ref="jpaCustomerDao"/>
+    </bean>
+
+  <!-- AUTHENTICATION SERVICE IMPL -->
+
+    <bean id="authServiceImpl" class="org.academiadecodigo.javabank.services.AuthServiceImpl">
+        <property name="customerService" ref="customerServiceImpl"/>
+    </bean>
+
+
+
+
+
+</beans>

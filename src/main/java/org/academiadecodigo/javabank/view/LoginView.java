@@ -2,6 +2,7 @@ package org.academiadecodigo.javabank.view;
 
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
 import org.academiadecodigo.javabank.controller.LoginController;
+import org.academiadecodigo.javabank.controller.MainController;
 
 /**
  * A view shown at login
@@ -46,4 +47,5 @@ public class LoginView extends AbstractView {
         scanner.setError(Messages.VIEW_LOGIN_ERROR);
         loginController.onLogin(prompt.getUserInput(scanner));
     }
+
 }
