@@ -14,6 +14,7 @@ public class App {
 
     private void bootStrap() {
 
+
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.getEnvironment().setActiveProfiles(Config.SPRING_DEFAULT_PROFILE);
         ctx.load(Config.SPRING_CONFIG);
