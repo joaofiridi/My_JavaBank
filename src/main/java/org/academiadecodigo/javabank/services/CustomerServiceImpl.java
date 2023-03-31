@@ -74,4 +74,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         return new ArrayList<>(customer.getRecipients());
     }
+   public List <Customer> getList (List <Integer> ids) {
+        List <Customer> customerList = new ArrayList<>();
+       for (Integer id: ids ) {
+           customerList.add(get(id));
+       }
+       return customerList;
+    }
 }
