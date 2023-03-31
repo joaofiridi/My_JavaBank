@@ -122,7 +122,7 @@
                     <url>http://localhost:8080/manager/text</url>
                     <!-- server defined in ~/.m2/settings.xml -->
                     <server>tomcat</server>
-                    <path>/JavaBank</path>
+                    <path>/javabank</path>
                 </configuration>
             </plugin>
             <plugin>

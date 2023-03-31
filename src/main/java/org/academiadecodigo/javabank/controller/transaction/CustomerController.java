@@ -21,7 +21,7 @@ public class CustomerController {
         this.jpaCustomerDao = jpaCustomerDao;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/customer")
+    @RequestMapping(method = RequestMethod.GET, value = "/")
 
     public String list(Model model) {
 
@@ -29,7 +29,7 @@ public class CustomerController {
 
         ;/* CustomerServiceImpl customerService = new CustomerServiceImpl();
         model.addAttribute(customerService.getList(jpaCustomerDao.getCustomerIds()));*/
-        return "javabank";
+        return "WEB-INF/pages/javabank.html";
     }
 
 }
