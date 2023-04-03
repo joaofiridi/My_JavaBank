@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static org.academiadecodigo.javabank.errors.ErrorMessage.*;
+
 /**
  * An {@link AccountService} implementation
  */
@@ -43,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
         Optional<Account> accountOptional = Optional.ofNullable(accountDao.findById(id));
 
-        accountOptional.orElseThrow(() -> new IllegalArgumentException("invalid account id"))
+        accountOptional.orElseThrow(() -> new IllegalArgumentException(INVALID_ACCOUNT))
                 .credit(amount);
 
         accountDao.saveOrUpdate(accountOptional.get());
@@ -57,10 +59,10 @@ public class AccountServiceImpl implements AccountService {
     public void withdraw(Integer id, double amount) {
 
         Account account = Optional.ofNullable(accountDao.findById(id))
-                .orElseThrow(() -> new IllegalArgumentException("invalid account id"));
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_ACCOUNT));
 
         if (!account.canWithdraw()) {
-            throw new IllegalArgumentException("invalid account type");
+            throw new IllegalArgumentException(INVALID_ACCOUNT_TYPE);
         }
 
         account.debit(amount);
@@ -78,8 +80,8 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> srcAccount = Optional.ofNullable(accountDao.findById(srcId));
         Optional<Account> dstAccount = Optional.ofNullable(accountDao.findById(dstId));
 
-        srcAccount.orElseThrow(() -> new IllegalArgumentException("invalid account id"));
-        dstAccount.orElseThrow(() -> new IllegalArgumentException("invalid account id"));
+        srcAccount.orElseThrow(() -> new IllegalArgumentException(INVALID_ACCOUNT));
+        dstAccount.orElseThrow(() -> new IllegalArgumentException(INVALID_ACCOUNT));
 
         // make sure transaction can be performed
         if (srcAccount.get().canDebit(amount) && dstAccount.get().canCredit(amount)) {
@@ -91,5 +93,3 @@ public class AccountServiceImpl implements AccountService {
         accountDao.saveOrUpdate(dstAccount.get());
     }
 }
-
-
