@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          modelType="text/css"/>
+    <script modelType="application/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script modelType="application/javascript" async
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="1" th:text="'Customer ' + ${customer.id}" ></h1>
+
+            <h1 id="id" th:text="'Id: ' + ${customer.id}" ></h1>
+            <h1 id="firstname" th:text="'First Name: ' + ${customer.firstName}" ></h1>
+            <h1 id="lastname" th:text="'Last Name: ' + ${customer.lastName}" ></h1>
+            <h1 id="email" th:text="'Email: ' + ${customer.email}" ></h1>
+            <h1 id="phone" th:text="'Phone: ' + ${customer.phone}" ></h1>
+<br>
+    <br>
+    <h1> Accounts: </h1>
+    <table class="table">
+        <tr>
+            <td>#</td>
+            <td>Accounts</td>
+
+        </tr>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.balance}"></td>
+    </table>
+
+    <br>
+    <button id="list"> <a th:href="@{'/customer/list'}" > Customer List </a></button>
+
+    </div>
+</div>
+</body>
+<style>
+    body{
+        animation: 10000ms ease-in-out infinite color-change;}
+    @keyframes color-change {
+        0% {
+            background-color: teal;
+        }
+        20% {
+            background-color:aqua;
+        }
+        40% {
+            background-color:aquamarine;
+        }
+        60% {
+            background-color:cadetblue;
+        }
+        80% {
+            background-color: sienna;
+        }
+        100% {
+            background-color: teal;
+        }
+
+    }
+    .table{
+        background-image: url("https://media.istockphoto.com/id/157308559/pt/foto/pilha-de-dinheiro-de-100-d%C3%B3lares-bills.jpg?s=612x612&w=0&k=20&c=mePhtc4yOnYYhHt_FtJbMMNqNrPfwH1snlTYAnGvc50=");
+        color: white;
+        font-size: larger;
+    }
+    #1{
+        display: flex;
+        justify-content: center;
+        font-size: xxx-large;
+        background-image: linear-gradient(#15747f, #173b4d);
+    }
+
+
+</style>
+</html>

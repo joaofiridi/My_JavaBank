@@ -21,6 +21,8 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Show</th>
+                <th>Delete</th>
             </tr>
             <tr th:each="customer : ${customers}">
                 <td th:text="${customer.id}"></td>
@@ -28,10 +30,15 @@
                 <td th:text="${customer.lastName}"></td>
                 <td th:text="${customer.email}"></td>
                 <td th:text="${customer.phone}"></td>
+                <th><a th:href="@{'/customer/'+ ${customer.id}}" target="_blank ">View</a></th>
+                <th><a th:href="@{'/customer/'+ ${customer.id} + '/delete'}"> Delete </a></th>
             </tr>
         </table>
     </div>
 </div>
 </body>
+<style>
+   body{ background-image: url("https://t4.ftcdn.net/jpg/00/61/06/27/360_F_61062796_NF87GPnWV0fQ2LhoYNlyjev0PocRwZj9.jpg");}
+</style>
 </html>
 
