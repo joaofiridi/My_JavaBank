@@ -11,8 +11,8 @@ public class ErrorMessage {
 
     public static final String ACCOUNT_CLOSE_AMOUNT_INVALID = "Account balance needs to be zero";
     public static final String ACCOUNT_NOT_FOUND = "Account does not exist";
-    public static final String INVALID_ACCOUNT = "invalid account id";
-    public static final String INVALID_ACCOUNT_TYPE = "invalid account type";
 
     public static final String RECIPIENT_NOT_FOUND = "Recipient does not exist";
+    public static final String INVALID_ACCOUNT = "invalid account id";
+    public static final String INVALID_ACCOUNT_TYPE = "invalid account type";
 }

@@ -1,6 +1,5 @@
 package org.academiadecodigo.javabank.services;
 
-import org.academiadecodigo.javabank.errors.ErrorMessage;
 import org.academiadecodigo.javabank.persistence.model.Customer;
 import org.academiadecodigo.javabank.persistence.model.Recipient;
 import org.academiadecodigo.javabank.persistence.model.account.Account;
@@ -72,6 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customer = Optional.ofNullable(customerDao.findById(id))
                 .orElseThrow(() -> new IllegalArgumentException(CUSTOMER_NOT_FOUND));
+
 
         return customer.getAccounts().stream()
                 .mapToDouble(Account::getBalance)
