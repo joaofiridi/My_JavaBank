@@ -19,7 +19,7 @@ public class DTOConverter {
     }
 
     public Customer convertCustomerDTO (CustomerDTO customerDTO){
-        Customer customer = new Customer();
+        Customer customer =  new Customer();
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
         customer.setEmail(customerDTO.getEmail());

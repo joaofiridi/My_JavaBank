@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * Sets the account data access object
      *
-     * @param accountDao the account DAO to set
+     * accountDao the account DAO to set
      */
     @Transactional
     public void save(Customer customer){

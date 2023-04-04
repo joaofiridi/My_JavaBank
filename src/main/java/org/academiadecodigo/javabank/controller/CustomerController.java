@@ -96,7 +96,7 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/edit/Submit")
-    public String edditing(@ModelAttribute CustomerDTO customerDTO, RedirectAttributes redirectAttributes, Integer id) {
+    public String editing(@ModelAttribute CustomerDTO customerDTO, RedirectAttributes redirectAttributes, Integer id) {
 
         Customer customer = new Customer();
         customer.setFirstName(customerDTO.getFirstName());
@@ -112,6 +112,7 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/add")
     public String addCustomer(Model model) {
+
         CustomerDTO customerDTO = new CustomerDTO();
         DTOConverter dtoConverter = new DTOConverter();
         dtoConverter.convertCustomerDTO(customerDTO);
