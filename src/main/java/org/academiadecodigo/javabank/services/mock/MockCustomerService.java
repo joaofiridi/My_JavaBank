@@ -77,4 +77,9 @@ public class MockCustomerService extends AbstractMockService<Customer> implement
             customer.removeRecipient(recipient);
         }
     }
+
+    @Override
+    public void save(Customer customer) {
+
+    }
 }

@@ -51,6 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
      *
      * @param accountDao the account DAO to set
      */
+    @Transactional
+    public void save(Customer customer){
+        customerDao.saveOrUpdate(customer);
+    }
     @Autowired
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
@@ -130,4 +134,5 @@ public class CustomerServiceImpl implements CustomerService {
         customer.removeRecipient(recipient);
         customerDao.saveOrUpdate(customer);
     }
+
 }

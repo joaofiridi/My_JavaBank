@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <thymeleaf th:replace="header :: header" />
+    <meta charset="UTF-8">
+    <title>EditCustomer</title>
+</head>
+<h1 id="title"> Customer Details</h1>
+
+<body>
+
+<div id="table">
+
+    <form th:action="@{/customer/edit/Submit}" method="post" th:object="${customer}">
+        <p> First Name: <input th:field= "${customer.firstName}"  id="answerFN" name="answer" type="text" ></p>
+        <br>
+
+        <p> Last Name: <input th:field= "${customer.lastName}" id="answerLN" name="answer" type="text" ></p>
+        <br>
+
+        <p> Email: <input th:field= "${customer.email}" id="answerEmail" name="answer" type="text" ></p>
+        <br>
+
+        <p> Phone: <input th:field= "${customer.phone}" id="answerPhone" name="answer" type="text" ></p>
+        <br>
+
+        <input type="Submit"/>
+    </form>
+
+</div>
+
+</body>
+</html>
